@@ -1,0 +1,360 @@
+package com.pca.bpms.newbusiness;
+
+//list any import classes here.
+import com.pca.bpms.model.newbusiness.NewContractForm;
+import com.pca.bpms.model.newbusiness.MainControl;
+import com.pca.bpms.model.newbusiness.MustRunSubProcess;
+
+//declare any global variables here
+
+rule "acceptDocument"
+    ruleflow-group "acceptDocument"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	通路別 == $newcontract.channel ,
+        	銷售單位 == $newcontract.sales ,
+        	進件方式 == $newcontract.caseInputType ,
+        	案件別 == $newcontract.caseKind ,
+        	首期繳費方式 == $newcontract.payment ,
+        	是否繳款成功 == $newcontract.paid ,
+        	可預先請授權 == $newcontract.vpos ,
+        	有授權碼 == $newcontract.authorized ,
+        	jetCase == $newcontract.jetCase ,
+        	受理 == "Y"
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("受理");
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "createDocument"
+    ruleflow-group "createDocument"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	通路別 == $newcontract.channel ,
+        	銷售單位 == $newcontract.sales ,
+        	進件方式 == $newcontract.caseInputType ,
+        	案件別 == $newcontract.caseKind ,
+        	首期繳費方式 == $newcontract.payment ,
+        	是否繳款成功 == $newcontract.paid ,
+        	可預先請授權 == $newcontract.vpos ,
+        	有授權碼 == $newcontract.authorized ,
+        	jetCase == $newcontract.jetCase
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("建檔" + $mainControl.get建檔());
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "default-createDocument"
+    ruleflow-group "createDocument"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	建檔 == "DY"
+        	)
+    then
+        //actions
+        //MustRunSubProcess mycontrol = new MustRunSubProcess("建檔DY");
+        MustRunSubProcess mycontrol = new MustRunSubProcess("建檔");
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "inquiryLIA"
+    ruleflow-group "inquiryLIA"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	通路別 == $newcontract.channel ,
+        	銷售單位 == $newcontract.sales ,
+        	進件方式 == $newcontract.caseInputType ,
+        	案件別 == $newcontract.caseKind ,
+        	首期繳費方式 == $newcontract.payment ,
+        	是否繳款成功 == $newcontract.paid ,
+        	可預先請授權 == $newcontract.vpos ,
+        	有授權碼 == $newcontract.authorized ,
+        	jetCase == $newcontract.jetCase
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("公會索引" + $mainControl.get公會索引());
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "default-inquiryLIA"
+    ruleflow-group "inquiryLIA"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	公會索引 == "DY"
+        	)
+    then
+        //actions
+        //MustRunSubProcess mycontrol = new MustRunSubProcess("公會索引DY");
+        MustRunSubProcess mycontrol = new MustRunSubProcess("公會索引");
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "authorizateCreditCardAhead"
+    ruleflow-group "authorizateCreditCardAhead"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	通路別 == $newcontract.channel ,
+        	銷售單位 == $newcontract.sales ,
+        	進件方式 == $newcontract.caseInputType ,
+        	案件別 == $newcontract.caseKind ,
+        	首期繳費方式 == $newcontract.payment ,
+        	是否繳款成功 == $newcontract.paid ,
+        	可預先請授權 == $newcontract.vpos ,
+        	有授權碼 == $newcontract.authorized ,
+        	jetCase == $newcontract.jetCase ,
+        	核保前信用卡請授權 == "Y"
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("核保前信用卡請授權");
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "remittanceAhead"
+    ruleflow-group "remittanceAhead"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	通路別 == $newcontract.channel ,
+        	銷售單位 == $newcontract.sales ,
+        	進件方式 == $newcontract.caseInputType ,
+        	案件別 == $newcontract.caseKind ,
+        	首期繳費方式 == $newcontract.payment ,
+        	是否繳款成功 == $newcontract.paid ,
+        	可預先請授權 == $newcontract.vpos ,
+        	有授權碼 == $newcontract.authorized ,
+        	jetCase == $newcontract.jetCase ,
+        	核保前匯款報繳 == "Y"
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("核保前匯款報繳");
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "autoUnderwrite"
+    ruleflow-group "autoUnderwrite"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	通路別 == $newcontract.channel ,
+        	銷售單位 == $newcontract.sales ,
+        	進件方式 == $newcontract.caseInputType ,
+        	案件別 == $newcontract.caseKind ,
+        	首期繳費方式 == $newcontract.payment ,
+        	是否繳款成功 == $newcontract.paid ,
+        	可預先請授權 == $newcontract.vpos ,
+        	有授權碼 == $newcontract.authorized ,
+        	jetCase == $newcontract.jetCase
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("自動核保" + $mainControl.get自動核保());
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "default-autoUnderwrite"
+    ruleflow-group "autoUnderwrite"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	自動核保 == "DY"
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("自動核保DY");
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+// ***********************************************
+//   自動核保以後的活動關卡判斷時，增加jetCase條件
+// ***********************************************
+
+rule "authorizateCreditCardAfter"
+    ruleflow-group "authorizateCreditCardAfter"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	通路別 == $newcontract.channel ,
+        	銷售單位 == $newcontract.sales ,
+        	進件方式 == $newcontract.caseInputType ,
+        	案件別 == $newcontract.caseKind ,
+        	首期繳費方式 == $newcontract.payment ,
+        	是否繳款成功 == $newcontract.paid ,
+        	可預先請授權 == $newcontract.vpos ,
+        	有授權碼 == $newcontract.authorized ,
+        	jetCase == $newcontract.jetCase ,
+        	核保後信用卡請授權 == "Y"
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("核保後信用卡請授權");
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "remittanceAfter"
+    ruleflow-group "remittanceAfter"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	通路別 == $newcontract.channel ,
+        	銷售單位 == $newcontract.sales ,
+        	進件方式 == $newcontract.caseInputType ,
+        	案件別 == $newcontract.caseKind ,
+        	首期繳費方式 == $newcontract.payment ,
+        	是否繳款成功 == $newcontract.paid ,
+        	可預先請授權 == $newcontract.vpos ,
+        	有授權碼 == $newcontract.authorized ,
+        	jetCase == $newcontract.jetCase ,
+        	核保後匯款報繳 == "Y"
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("核保後匯款報繳");
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "manualUnderwrite"
+    ruleflow-group "manualUnderwrite"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	通路別 == $newcontract.channel ,
+        	銷售單位 == $newcontract.sales ,
+        	進件方式 == $newcontract.caseInputType ,
+        	案件別 == $newcontract.caseKind ,
+        	首期繳費方式 == $newcontract.payment ,
+        	是否繳款成功 == $newcontract.paid ,
+        	可預先請授權 == $newcontract.vpos ,
+        	有授權碼 == $newcontract.authorized ,
+        	jetCase == $newcontract.jetCase
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("核保照會" + $mainControl.get核保照會());
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "default-manualUnderwrite"
+    ruleflow-group "manualUnderwrite"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	核保照會 == "DY"
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("核保照會DY");
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "requestCashTransfer"
+    ruleflow-group "requestCashTransfer"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	通路別 == $newcontract.channel ,
+        	銷售單位 == $newcontract.sales ,
+        	進件方式 == $newcontract.caseInputType ,
+        	案件別 == $newcontract.caseKind ,
+        	首期繳費方式 == $newcontract.payment ,
+        	是否繳款成功 == $newcontract.paid ,
+        	可預先請授權 == $newcontract.vpos ,
+        	有授權碼 == $newcontract.authorized ,
+        	jetCase == $newcontract.jetCase ,
+        	自動轉帳請款 == "Y"
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("自動轉帳請款");
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "sendDeal"
+    ruleflow-group "sendDeal"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	通路別 == $newcontract.channel ,
+        	銷售單位 == $newcontract.sales ,
+        	進件方式 == $newcontract.caseInputType ,
+        	案件別 == $newcontract.caseKind ,
+        	首期繳費方式 == $newcontract.payment ,
+        	是否繳款成功 == $newcontract.paid ,
+        	可預先請授權 == $newcontract.vpos ,
+        	有授權碼 == $newcontract.authorized ,
+        	jetCase == $newcontract.jetCase
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("發單處理" + $mainControl.get發單處理());
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+rule "default-sendDeal"
+    ruleflow-group "sendDeal"
+    when
+        //conditions
+        $newcontract : NewContractForm( )
+        $mainControl : MainControl(
+        	發單處理 == "DY"
+        	)
+    then
+        //actions
+        MustRunSubProcess mycontrol = new MustRunSubProcess("發單處理DY");
+        insert( mycontrol );
+        System.out.println("MustRunSubProcess : reason=" + mycontrol.getReason() );
+end
+
+query "getMustRunResults"
+    $result: com.pca.bpms.model.newbusiness.MustRunSubProcess( )
+end
+
+query "getNewContractForm"
+    $result: com.pca.bpms.model.newbusiness.NewContractForm( )
+end
+
+query "getMainControl"
+    $result: com.pca.bpms.model.newbusiness.MainControl( )
+end

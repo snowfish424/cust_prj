@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/bpmn20" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:drools="http://www.jboss.org/drools" id="_p0HbkMEjEey5MrHI2wLo6w" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd http://www.omg.org/spec/DD/20100524/DC DC.xsd http://www.omg.org/spec/DD/20100524/DI DI.xsd " exporter="jBPM Process Modeler" exporterVersion="2.0" targetNamespace="http://www.omg.org/bpmn20">
+  <bpmn2:itemDefinition id="_signalParamItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="_procLoggerItem" structureRef="org.slf4j.Logger"/>
+  <bpmn2:itemDefinition id="_rootProcessIdItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="_mainProcessInstanceIdItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="_mainFlowStartTimeItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="_nodeNameItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="_getTaskNameItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="_assignedPeopleItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="_getPriorityItem" structureRef="java.lang.Integer"/>
+  <bpmn2:itemDefinition id="_imageDeleteCreatorItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="_imageDeleteReviewerItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="_approvedItem" structureRef="java.lang.Boolean"/>
+  <bpmn2:itemDefinition id="_submitToReviewerItem" structureRef="java.lang.Boolean"/>
+  <bpmn2:itemDefinition id="_isReturnedItem" structureRef="java.lang.Boolean"/>
+  <bpmn2:itemDefinition id="_userTaskActorsItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="_userTaskGroupItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_SkippableInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_PriorityInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_CommentInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_DescriptionInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_CreatedByInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_TaskNameInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_GroupIdInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_ContentInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_NotStartedReassignInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_NotCompletedReassignInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_NotStartedNotifyInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_NotCompletedNotifyInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_mainProcessInstanceIdInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_rootProcessIdInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_nodeNameInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_getTaskNameInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_isReturnedInputXItem" structureRef="java.lang.Boolean"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteCreatorInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteReviewerInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_userTaskActorsOutputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteReviewerOutputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_approvedOutputXItem" structureRef="java.lang.Boolean"/>
+  <bpmn2:itemDefinition id="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_getPriorityOutputXItem" structureRef="java.lang.Integer"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_SkippableInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_PriorityInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_CommentInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_DescriptionInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_CreatedByInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_TaskNameInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_GroupIdInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_ContentInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_NotStartedReassignInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_NotCompletedReassignInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_NotStartedNotifyInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_NotCompletedNotifyInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_nodeNameInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_getTaskNameInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_isReturnedInputXItem" structureRef="java.lang.Boolean"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_assignedPeopleInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteCreatorInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_rootProcessIdInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_submitToReviewerInputXItem" structureRef="java.lang.Boolean"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_mainProcessInstanceIdInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteReviewerInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_userTaskActorsOutputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_submitToReviewerOutputXItem" structureRef="java.lang.Boolean"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteCreatorOutputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__EB83628C-528B-4F53-AC92-D159DCB0DF20_getPriorityOutputXItem" structureRef="java.lang.Integer"/>
+  <bpmn2:itemDefinition id="__9D511245-5AAC-434F-8734-8FA915B0293A_outParam1OutputXItem" structureRef="Object"/>
+  <bpmn2:signal id="_80216eb4-6d24-335f-8891-1d3ef5dc029a" name="startMainProcess"/>
+  <bpmn2:process id="imagedelete.imagedeleteprocess.pam7" drools:packageName="com.pca.bpms.imagedelete" drools:version="0.003" drools:adHoc="false" name="ImageDeleteProcess" isExecutable="true" processType="Public">
+    <bpmn2:extensionElements>
+      <drools:import name="org.slf4j.Logger"/>
+      <drools:import name="org.slf4j.LoggerFactory"/>
+      <drools:import name="java.util.List"/>
+      <drools:import name="java.util.Map"/>
+      <drools:import name="java.util.Map.Entry"/>
+      <drools:import name="java.lang.String"/>
+      <drools:import name="java.lang.Integer"/>
+      <drools:import name="java.text.SimpleDateFormat"/>
+      <drools:import name="java.util.Date"/>
+      <drools:import name="java.math.BigDecimal"/>
+      <drools:import name="java.lang.Object"/>
+      <drools:import name="java.lang.Long"/>
+      <drools:import name="java.lang.Short"/>
+      <drools:import name="java.util.ArrayList"/>
+      <drools:import name="java.lang.Boolean"/>
+    </bpmn2:extensionElements>
+    <bpmn2:property id="signalParam" itemSubjectRef="_signalParamItem" name="signalParam"/>
+    <bpmn2:property id="procLogger" itemSubjectRef="_procLoggerItem" name="procLogger"/>
+    <bpmn2:property id="rootProcessId" itemSubjectRef="_rootProcessIdItem" name="rootProcessId"/>
+    <bpmn2:property id="mainProcessInstanceId" itemSubjectRef="_mainProcessInstanceIdItem" name="mainProcessInstanceId"/>
+    <bpmn2:property id="mainFlowStartTime" itemSubjectRef="_mainFlowStartTimeItem" name="mainFlowStartTime"/>
+    <bpmn2:property id="nodeName" itemSubjectRef="_nodeNameItem" name="nodeName"/>
+    <bpmn2:property id="getTaskName" itemSubjectRef="_getTaskNameItem" name="getTaskName"/>
+    <bpmn2:property id="assignedPeople" itemSubjectRef="_assignedPeopleItem" name="assignedPeople"/>
+    <bpmn2:property id="getPriority" itemSubjectRef="_getPriorityItem" name="getPriority"/>
+    <bpmn2:property id="imageDeleteCreator" itemSubjectRef="_imageDeleteCreatorItem" name="imageDeleteCreator"/>
+    <bpmn2:property id="imageDeleteReviewer" itemSubjectRef="_imageDeleteReviewerItem" name="imageDeleteReviewer"/>
+    <bpmn2:property id="approved" itemSubjectRef="_approvedItem" name="approved"/>
+    <bpmn2:property id="submitToReviewer" itemSubjectRef="_submitToReviewerItem" name="submitToReviewer"/>
+    <bpmn2:property id="isReturned" itemSubjectRef="_isReturnedItem" name="isReturned"/>
+    <bpmn2:property id="userTaskActors" itemSubjectRef="_userTaskActorsItem" name="userTaskActors"/>
+    <bpmn2:property id="userTaskGroup" itemSubjectRef="_userTaskGroupItem" name="userTaskGroup"/>
+    <bpmn2:sequenceFlow id="_408B29C0-12C1-48EB-A1E9-FAA96572099D" drools:priority="1" sourceRef="_9D511245-5AAC-434F-8734-8FA915B0293A" targetRef="_C137BA0B-669B-47FE-9CEB-E711A843DD88"/>
+    <bpmn2:sequenceFlow id="_F8E34F28-FCFF-4E82-A443-8B9A174045D1" drools:priority="1" sourceRef="_3F5A28A0-B301-43CC-A76E-C20F788241AF" targetRef="_9D511245-5AAC-434F-8734-8FA915B0293A"/>
+    <bpmn2:sequenceFlow id="_F283AE71-15C8-4224-901A-096C268EDABC" drools:priority="1" sourceRef="_E11E617E-E71B-4492-9D18-2EF95FA88E5C" targetRef="_2638CA00-474D-404D-A08C-47C20817C9AD">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="_p0HbkcEjEey5MrHI2wLo6w" language="http://www.java.com/java"><![CDATA[return KieFunctions.isTrue(approved);]]></bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="_A0A78A9A-194F-4A11-8C9A-21E2300B5CA8" drools:priority="1" sourceRef="_9AE126E0-AFA1-44D0-9DEA-5839953D944D" targetRef="_EB83628C-528B-4F53-AC92-D159DCB0DF20"/>
+    <bpmn2:sequenceFlow id="_8F8B4AC3-5753-4304-B9D2-76EE80B7ABBB" drools:priority="1" sourceRef="_C137BA0B-669B-47FE-9CEB-E711A843DD88" targetRef="_9AE126E0-AFA1-44D0-9DEA-5839953D944D"/>
+    <bpmn2:sequenceFlow id="_B9B24093-21E7-4A1E-86D9-96EE8B8B2E32" drools:priority="1" name="發回送件人" sourceRef="_E11E617E-E71B-4492-9D18-2EF95FA88E5C" targetRef="_9AE126E0-AFA1-44D0-9DEA-5839953D944D">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[發回送件人]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="_p0HbksEjEey5MrHI2wLo6w" language="http://www.java.com/java"><![CDATA[return KieFunctions.isFalse(approved);]]></bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="_CD66584F-438F-4D8F-AE80-C34DBBBCDD58" drools:priority="1" name="取消" sourceRef="_3717BE60-CE1D-4749-B40E-64FF457F1DAE" targetRef="_2638CA00-474D-404D-A08C-47C20817C9AD">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[取消]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="_p0Hbk8EjEey5MrHI2wLo6w" language="http://www.java.com/java"><![CDATA[return KieFunctions.isFalse(submitToReviewer);]]></bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="_7E63AF65-43F7-42BC-8E3C-57D5FC5E7F6B" drools:priority="1" sourceRef="_EB83628C-528B-4F53-AC92-D159DCB0DF20" targetRef="_3717BE60-CE1D-4749-B40E-64FF457F1DAE"/>
+    <bpmn2:sequenceFlow id="_7760DB8A-29C6-43CE-A8E2-5BC25A559E06" drools:priority="1" sourceRef="_2638CA00-474D-404D-A08C-47C20817C9AD" targetRef="_F725966C-E9EF-43B7-A13E-0A546C8A3B73"/>
+    <bpmn2:sequenceFlow id="_3979E8A2-2685-4F2C-83D8-7A65922123BB" drools:priority="1" sourceRef="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922" targetRef="_E11E617E-E71B-4492-9D18-2EF95FA88E5C"/>
+    <bpmn2:sequenceFlow id="_EB8924AD-DFD8-44E7-8642-6CC896C4156B" drools:priority="1" sourceRef="_3717BE60-CE1D-4749-B40E-64FF457F1DAE" targetRef="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="_p0HblMEjEey5MrHI2wLo6w" language="http://www.java.com/java"><![CDATA[return KieFunctions.isTrue(submitToReviewer);]]></bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="_7A03BBAC-F472-4510-866B-DDCBDAB084E7" drools:priority="1" sourceRef="_F725966C-E9EF-43B7-A13E-0A546C8A3B73" targetRef="_CCCE1D93-21F2-4CB8-9863-C1D3A10839D2"/>
+    <bpmn2:scriptTask id="_C137BA0B-669B-47FE-9CEB-E711A843DD88" name="刪除影像流程-初始化" scriptFormat="http://www.java.com/java">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[刪除影像流程-初始化]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_408B29C0-12C1-48EB-A1E9-FAA96572099D</bpmn2:incoming>
+      <bpmn2:outgoing>_8F8B4AC3-5753-4304-B9D2-76EE80B7ABBB</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[//初始流程用Logger
+procLogger = (Logger) LoggerFactory.getLogger("Script Task Logger");
+kcontext.setVariable("procLogger",procLogger);
+
+//紀錄進入點
+procLogger.info("On Entry Action, STAGE: "+ kcontext.getNodeInstance().getNodeName());
+
+//set 主流程產生時間 Date()並set
+SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+Date now = new Date();
+procLogger.info("now Date :  " +  now );
+String formatDate = sdf.format(  now );
+procLogger.info("formatDate :  " +  formatDate );
+
+//初始主流程必要參數並set
+kcontext.setVariable("mainProcessInstanceId", String.valueOf(kcontext.getProcessInstance().getId()) );
+kcontext.setVariable("rootProcessId", kcontext.getProcessInstance().getProcessId() );
+kcontext.setVariable("mainFlowStartTime", formatDate );
+kcontext.setVariable("userTaskGroup", "");
+kcontext.setVariable("userTaskActors", "");
+kcontext.setVariable("approved", false);
+kcontext.setVariable("submitToReviewer", false);
+kcontext.setVariable("isReturned", false);
+if(null == kcontext.getVariable("getPriority")){
+	kcontext.setVariable("getPriority", 2);
+}
+
+//Logger 記錄產生流程的預設值
+procLogger.info("mainFlowStartTime: " + kcontext.getVariable("mainFlowStartTime") );
+procLogger.info("mainProcessInstanceId: " + kcontext.getVariable("mainProcessInstanceId ") );
+procLogger.info("rootProcessId: " + kcontext.getVariable("rootProcessId") );
+procLogger.info("assignedPeople: " + kcontext.getVariable("assignedPeople"));
+procLogger.info("getPriority: " + kcontext.getVariable("getPriority"));
+procLogger.info("approved: " + kcontext.getVariable("approved"));
+procLogger.info("submitToReviewer: " + kcontext.getVariable("submitToReviewer"));
+procLogger.info("isReturned: " + kcontext.getVariable("isReturned"));
+
+//紀錄結束點
+procLogger.info("On Exit Action, STAGE: "+ kcontext.getNodeInstance().getNodeName());]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:exclusiveGateway id="_2638CA00-474D-404D-A08C-47C20817C9AD" name="接入" gatewayDirection="Converging">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[接入]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_CD66584F-438F-4D8F-AE80-C34DBBBCDD58</bpmn2:incoming>
+      <bpmn2:incoming>_F283AE71-15C8-4224-901A-096C268EDABC</bpmn2:incoming>
+      <bpmn2:outgoing>_7760DB8A-29C6-43CE-A8E2-5BC25A559E06</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:startEvent id="_3F5A28A0-B301-43CC-A76E-C20F788241AF" name="影像刪除處理流程開始">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[影像刪除處理流程開始]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>_F8E34F28-FCFF-4E82-A443-8B9A174045D1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:intermediateCatchEvent id="_9D511245-5AAC-434F-8734-8FA915B0293A" name="影像刪除流程Signal暫停點">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[影像刪除流程Signal暫停點]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_F8E34F28-FCFF-4E82-A443-8B9A174045D1</bpmn2:incoming>
+      <bpmn2:outgoing>_408B29C0-12C1-48EB-A1E9-FAA96572099D</bpmn2:outgoing>
+      <bpmn2:dataOutput id="_9D511245-5AAC-434F-8734-8FA915B0293A_outParam1OutputX" drools:dtype="Object" itemSubjectRef="__9D511245-5AAC-434F-8734-8FA915B0293A_outParam1OutputXItem" name="outParam1"/>
+      <bpmn2:dataOutputAssociation id="_p0HblsEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>_9D511245-5AAC-434F-8734-8FA915B0293A_outParam1OutputX</bpmn2:sourceRef>
+        <bpmn2:targetRef>signalParam</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:outputSet id="_p0HblcEjEey5MrHI2wLo6w">
+        <bpmn2:dataOutputRefs>_9D511245-5AAC-434F-8734-8FA915B0293A_outParam1OutputX</bpmn2:dataOutputRefs>
+      </bpmn2:outputSet>
+      <bpmn2:signalEventDefinition id="_p0Hbl8EjEey5MrHI2wLo6w" signalRef="_80216eb4-6d24-335f-8891-1d3ef5dc029a"/>
+    </bpmn2:intermediateCatchEvent>
+    <bpmn2:exclusiveGateway id="_E11E617E-E71B-4492-9D18-2EF95FA88E5C" name="退回申請人/核准" gatewayDirection="Diverging">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[退回申請人/核准]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_3979E8A2-2685-4F2C-83D8-7A65922123BB</bpmn2:incoming>
+      <bpmn2:outgoing>_B9B24093-21E7-4A1E-86D9-96EE8B8B2E32</bpmn2:outgoing>
+      <bpmn2:outgoing>_F283AE71-15C8-4224-901A-096C268EDABC</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:userTask id="_EB83628C-528B-4F53-AC92-D159DCB0DF20" name="刪除影像選擇">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[刪除影像選擇]]></drools:metaValue>
+        </drools:metaData>
+        <drools:metaData name="customAsync">
+          <drools:metaValue><![CDATA[true]]></drools:metaValue>
+        </drools:metaData>
+        <drools:onEntry-script scriptFormat="http://www.java.com/java">
+          <drools:script><![CDATA[// 紀錄進入
+procLogger.info("On Entry Action, STAGE: "+ kcontext.getNodeInstance().getNodeName());
+
+//紀錄關卡資訊
+kcontext.setVariable("nodeName", kcontext.getNodeInstance().getNodeName());
+kcontext.setVariable("getTaskName", "imageDeleteSelect");
+
+if(KieFunctions.isEmpty(assignedPeople) && KieFunctions.isEmpty(userTaskActors)) { 
+	kcontext.setVariable("userTaskGroup", "imageDeleteSelect");
+}else if(KieFunctions.isEmpty(userTaskActors)) {
+	kcontext.setVariable("userTaskActors", assignedPeople);
+}
+
+// 若目前處理人員userTaskActors與原處理人員相同，則視為案件返回
+if (!KieFunctions.isEmpty(userTaskActors) && !KieFunctions.isEmpty(imageDeleteCreator) && userTaskActors.equals(imageDeleteCreator)) {
+	kcontext.setVariable("isReturned", true);
+}
+]]></drools:script>
+        </drools:onEntry-script>
+        <drools:onExit-script scriptFormat="http://www.java.com/java">
+          <drools:script><![CDATA[// 紀錄離開
+procLogger.info("On Exit Action, STAGE: "+ kcontext.getNodeInstance().getNodeName());
+
+kcontext.setVariable("userTaskGroup", "");
+kcontext.setVariable("isReturned", false);
+]]></drools:script>
+        </drools:onExit-script>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_A0A78A9A-194F-4A11-8C9A-21E2300B5CA8</bpmn2:incoming>
+      <bpmn2:outgoing>_7E63AF65-43F7-42BC-8E3C-57D5FC5E7F6B</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_p0HbmMEjEey5MrHI2wLo6w">
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_TaskNameInputX" drools:dtype="Object" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_TaskNameInputXItem" name="TaskName"/>
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_nodeNameInputX" drools:dtype="java.lang.String" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_nodeNameInputXItem" name="nodeName"/>
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_getTaskNameInputX" drools:dtype="java.lang.String" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_getTaskNameInputXItem" name="getTaskName"/>
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_isReturnedInputX" drools:dtype="java.lang.Boolean" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_isReturnedInputXItem" name="isReturned"/>
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_assignedPeopleInputX" drools:dtype="java.lang.String" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_assignedPeopleInputXItem" name="assignedPeople"/>
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteCreatorInputX" drools:dtype="java.lang.String" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteCreatorInputXItem" name="imageDeleteCreator"/>
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_rootProcessIdInputX" drools:dtype="java.lang.String" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_rootProcessIdInputXItem" name="rootProcessId"/>
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_submitToReviewerInputX" drools:dtype="java.lang.Boolean" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_submitToReviewerInputXItem" name="submitToReviewer"/>
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_mainProcessInstanceIdInputX" drools:dtype="java.lang.String" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_mainProcessInstanceIdInputXItem" name="mainProcessInstanceId"/>
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteReviewerInputX" drools:dtype="java.lang.String" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteReviewerInputXItem" name="imageDeleteReviewer"/>
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_SkippableInputX" drools:dtype="Object" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_SkippableInputXItem" name="Skippable"/>
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_GroupIdInputX" drools:dtype="Object" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_GroupIdInputXItem" name="GroupId"/>
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_DescriptionInputX" drools:dtype="Object" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_DescriptionInputXItem" name="Description"/>
+        <bpmn2:dataInput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_PriorityInputX" drools:dtype="Object" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_PriorityInputXItem" name="Priority"/>
+        <bpmn2:dataOutput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_userTaskActorsOutputX" drools:dtype="java.lang.String" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_userTaskActorsOutputXItem" name="userTaskActors"/>
+        <bpmn2:dataOutput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_submitToReviewerOutputX" drools:dtype="java.lang.Boolean" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_submitToReviewerOutputXItem" name="submitToReviewer"/>
+        <bpmn2:dataOutput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteCreatorOutputX" drools:dtype="java.lang.String" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteCreatorOutputXItem" name="imageDeleteCreator"/>
+        <bpmn2:dataOutput id="_EB83628C-528B-4F53-AC92-D159DCB0DF20_getPriorityOutputX" drools:dtype="java.lang.Integer" itemSubjectRef="__EB83628C-528B-4F53-AC92-D159DCB0DF20_getPriorityOutputXItem" name="getPriority"/>
+        <bpmn2:inputSet id="_p0HbmcEjEey5MrHI2wLo6w">
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_TaskNameInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_nodeNameInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_getTaskNameInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_isReturnedInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_assignedPeopleInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteCreatorInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_rootProcessIdInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_submitToReviewerInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_mainProcessInstanceIdInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteReviewerInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_SkippableInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_GroupIdInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_DescriptionInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_PriorityInputX</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_p0HbmsEjEey5MrHI2wLo6w">
+          <bpmn2:dataOutputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_userTaskActorsOutputX</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_submitToReviewerOutputX</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteCreatorOutputX</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>_EB83628C-528B-4F53-AC92-D159DCB0DF20_getPriorityOutputX</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_p0Hbm8EjEey5MrHI2wLo6w">
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_TaskNameInputX</bpmn2:targetRef>
+        <bpmn2:assignment id="_p0HbnMEjEey5MrHI2wLo6w">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_p0HbncEjEey5MrHI2wLo6w"><![CDATA[imageDeleteSelect]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_p0HbnsEjEey5MrHI2wLo6w">_EB83628C-528B-4F53-AC92-D159DCB0DF20_TaskNameInputX</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0Hbn8EjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>nodeName</bpmn2:sourceRef>
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_nodeNameInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0HboMEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>getTaskName</bpmn2:sourceRef>
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_getTaskNameInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0HbocEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>isReturned</bpmn2:sourceRef>
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_isReturnedInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0HbosEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>assignedPeople</bpmn2:sourceRef>
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_assignedPeopleInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0Hbo8EjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>imageDeleteCreator</bpmn2:sourceRef>
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteCreatorInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0HbpMEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>rootProcessId</bpmn2:sourceRef>
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_rootProcessIdInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0HbpcEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>submitToReviewer</bpmn2:sourceRef>
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_submitToReviewerInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0HbpsEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>mainProcessInstanceId</bpmn2:sourceRef>
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_mainProcessInstanceIdInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0Hbp8EjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>imageDeleteReviewer</bpmn2:sourceRef>
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteReviewerInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0HbqMEjEey5MrHI2wLo6w">
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_SkippableInputX</bpmn2:targetRef>
+        <bpmn2:assignment id="_p0HbqcEjEey5MrHI2wLo6w">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_p0HbqsEjEey5MrHI2wLo6w"><![CDATA[true]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_p0Hbq8EjEey5MrHI2wLo6w">_EB83628C-528B-4F53-AC92-D159DCB0DF20_SkippableInputX</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0HbrMEjEey5MrHI2wLo6w">
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_GroupIdInputX</bpmn2:targetRef>
+        <bpmn2:assignment id="_p0HbrcEjEey5MrHI2wLo6w">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_p0HbrsEjEey5MrHI2wLo6w"><![CDATA[#{userTaskGroup}]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_p0Hbr8EjEey5MrHI2wLo6w">_EB83628C-528B-4F53-AC92-D159DCB0DF20_GroupIdInputX</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0HbsMEjEey5MrHI2wLo6w">
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_DescriptionInputX</bpmn2:targetRef>
+        <bpmn2:assignment id="_p0HbscEjEey5MrHI2wLo6w">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_p0HbssEjEey5MrHI2wLo6w"><![CDATA[imageDeleteSelect]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_p0Hbs8EjEey5MrHI2wLo6w">_EB83628C-528B-4F53-AC92-D159DCB0DF20_DescriptionInputX</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0HbtMEjEey5MrHI2wLo6w">
+        <bpmn2:targetRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_PriorityInputX</bpmn2:targetRef>
+        <bpmn2:assignment id="_p0HbtcEjEey5MrHI2wLo6w">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_p0HbtsEjEey5MrHI2wLo6w"><![CDATA[1]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_p0Hbt8EjEey5MrHI2wLo6w">_EB83628C-528B-4F53-AC92-D159DCB0DF20_PriorityInputX</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="_p0HbuMEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_userTaskActorsOutputX</bpmn2:sourceRef>
+        <bpmn2:targetRef>userTaskActors</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:dataOutputAssociation id="_p0HbucEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_submitToReviewerOutputX</bpmn2:sourceRef>
+        <bpmn2:targetRef>submitToReviewer</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:dataOutputAssociation id="_p0HbusEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_imageDeleteCreatorOutputX</bpmn2:sourceRef>
+        <bpmn2:targetRef>imageDeleteCreator</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:dataOutputAssociation id="_p0Hbu8EjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>_EB83628C-528B-4F53-AC92-D159DCB0DF20_getPriorityOutputX</bpmn2:sourceRef>
+        <bpmn2:targetRef>getPriority</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:potentialOwner id="_2b84a436-03ab-4762-b1fa-db7752031309">
+        <bpmn2:resourceAssignmentExpression id="_p0HbvMEjEey5MrHI2wLo6w">
+          <bpmn2:formalExpression id="_p0HbvcEjEey5MrHI2wLo6w">#{userTaskActors}</bpmn2:formalExpression>
+        </bpmn2:resourceAssignmentExpression>
+      </bpmn2:potentialOwner>
+    </bpmn2:userTask>
+    <bpmn2:exclusiveGateway id="_9AE126E0-AFA1-44D0-9DEA-5839953D944D" name="接入" gatewayDirection="Converging">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[接入]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_B9B24093-21E7-4A1E-86D9-96EE8B8B2E32</bpmn2:incoming>
+      <bpmn2:incoming>_8F8B4AC3-5753-4304-B9D2-76EE80B7ABBB</bpmn2:incoming>
+      <bpmn2:outgoing>_A0A78A9A-194F-4A11-8C9A-21E2300B5CA8</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:exclusiveGateway id="_3717BE60-CE1D-4749-B40E-64FF457F1DAE" name="送交主管/取消" gatewayDirection="Diverging">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[送交主管/取消]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_7E63AF65-43F7-42BC-8E3C-57D5FC5E7F6B</bpmn2:incoming>
+      <bpmn2:outgoing>_EB8924AD-DFD8-44E7-8642-6CC896C4156B</bpmn2:outgoing>
+      <bpmn2:outgoing>_CD66584F-438F-4D8F-AE80-C34DBBBCDD58</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:scriptTask id="_F725966C-E9EF-43B7-A13E-0A546C8A3B73" name="刪除影像流程-結束" scriptFormat="http://www.java.com/java">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[刪除影像流程-結束]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_7760DB8A-29C6-43CE-A8E2-5BC25A559E06</bpmn2:incoming>
+      <bpmn2:outgoing>_7A03BBAC-F472-4510-866B-DDCBDAB084E7</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[//紀錄進入點
+procLogger.info("On Entry Action, STAGE: "+ kcontext.getNodeInstance().getNodeName());
+
+procLogger.info("mainProcessInstanceId: " + kcontext.getVariable("mainProcessInstanceId ") );
+procLogger.info("rootProcessId: " + kcontext.getVariable("rootProcessId") );
+procLogger.info("assignedPeople: " + kcontext.getVariable("assignedPeople"));
+procLogger.info("getPriority: " + kcontext.getVariable("getPriority"));
+procLogger.info("submitToReviewer: " + kcontext.getVariable("submitToReviewer"));
+procLogger.info("approved: " + kcontext.getVariable("approved"));
+procLogger.info("imageDeleteCreator: " + kcontext.getVariable("imageDeleteCreator"));
+procLogger.info("imageDeleteReviewer: " + kcontext.getVariable("imageDeleteReviewer"));
+
+//紀錄結束點
+procLogger.info("On Exit Action, STAGE: "+ kcontext.getNodeInstance().getNodeName());]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:userTask id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922" name="刪除影像覆核">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[刪除影像覆核]]></drools:metaValue>
+        </drools:metaData>
+        <drools:metaData name="customAsync">
+          <drools:metaValue><![CDATA[true]]></drools:metaValue>
+        </drools:metaData>
+        <drools:onEntry-script scriptFormat="http://www.java.com/java">
+          <drools:script><![CDATA[// 紀錄進入
+procLogger.info("On Entry Action, STAGE: "+ kcontext.getNodeInstance().getNodeName());
+
+//紀錄關卡資訊
+kcontext.setVariable("nodeName", kcontext.getNodeInstance().getNodeName());
+kcontext.setVariable("getTaskName", "imageDeleteReview");
+
+if(KieFunctions.isEmpty(imageDeleteReviewer) && KieFunctions.isEmpty(userTaskActors)) { 
+	kcontext.setVariable("userTaskGroup", "imageDeleteReview");
+}else if(KieFunctions.isEmpty(userTaskActors)) {
+	kcontext.setVariable("userTaskActors", imageDeleteReviewer);
+}
+
+// 若目前處理人員userTaskActors與原處理人員相同，則視為案件返回
+if (!KieFunctions.isEmpty(userTaskActors) && !KieFunctions.isEmpty(imageDeleteReviewer) && userTaskActors.equals(imageDeleteReviewer)) {
+	kcontext.setVariable("isReturned", true);
+}
+]]></drools:script>
+        </drools:onEntry-script>
+        <drools:onExit-script scriptFormat="http://www.java.com/java">
+          <drools:script><![CDATA[// 紀錄離開
+procLogger.info("On Exit Action, STAGE: "+ kcontext.getNodeInstance().getNodeName());
+
+kcontext.setVariable("userTaskGroup", "");
+kcontext.setVariable("isReturned", false);
+]]></drools:script>
+        </drools:onExit-script>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_EB8924AD-DFD8-44E7-8642-6CC896C4156B</bpmn2:incoming>
+      <bpmn2:outgoing>_3979E8A2-2685-4F2C-83D8-7A65922123BB</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_p0HbvsEjEey5MrHI2wLo6w">
+        <bpmn2:dataInput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_TaskNameInputX" drools:dtype="Object" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_TaskNameInputXItem" name="TaskName"/>
+        <bpmn2:dataInput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_mainProcessInstanceIdInputX" drools:dtype="java.lang.String" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_mainProcessInstanceIdInputXItem" name="mainProcessInstanceId"/>
+        <bpmn2:dataInput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_rootProcessIdInputX" drools:dtype="java.lang.String" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_rootProcessIdInputXItem" name="rootProcessId"/>
+        <bpmn2:dataInput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_nodeNameInputX" drools:dtype="java.lang.String" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_nodeNameInputXItem" name="nodeName"/>
+        <bpmn2:dataInput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_getTaskNameInputX" drools:dtype="java.lang.String" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_getTaskNameInputXItem" name="getTaskName"/>
+        <bpmn2:dataInput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_isReturnedInputX" drools:dtype="java.lang.Boolean" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_isReturnedInputXItem" name="isReturned"/>
+        <bpmn2:dataInput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteCreatorInputX" drools:dtype="java.lang.String" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteCreatorInputXItem" name="imageDeleteCreator"/>
+        <bpmn2:dataInput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteReviewerInputX" drools:dtype="java.lang.String" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteReviewerInputXItem" name="imageDeleteReviewer"/>
+        <bpmn2:dataInput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_SkippableInputX" drools:dtype="Object" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_SkippableInputXItem" name="Skippable"/>
+        <bpmn2:dataInput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_GroupIdInputX" drools:dtype="Object" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_GroupIdInputXItem" name="GroupId"/>
+        <bpmn2:dataInput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_DescriptionInputX" drools:dtype="Object" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_DescriptionInputXItem" name="Description"/>
+        <bpmn2:dataInput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_PriorityInputX" drools:dtype="Object" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_PriorityInputXItem" name="Priority"/>
+        <bpmn2:dataOutput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_userTaskActorsOutputX" drools:dtype="java.lang.String" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_userTaskActorsOutputXItem" name="userTaskActors"/>
+        <bpmn2:dataOutput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteReviewerOutputX" drools:dtype="java.lang.String" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteReviewerOutputXItem" name="imageDeleteReviewer"/>
+        <bpmn2:dataOutput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_approvedOutputX" drools:dtype="java.lang.Boolean" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_approvedOutputXItem" name="approved"/>
+        <bpmn2:dataOutput id="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_getPriorityOutputX" drools:dtype="java.lang.Integer" itemSubjectRef="__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_getPriorityOutputXItem" name="getPriority"/>
+        <bpmn2:inputSet id="_p0Hbv8EjEey5MrHI2wLo6w">
+          <bpmn2:dataInputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_TaskNameInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_mainProcessInstanceIdInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_rootProcessIdInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_nodeNameInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_getTaskNameInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_isReturnedInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteCreatorInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteReviewerInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_SkippableInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_GroupIdInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_DescriptionInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_PriorityInputX</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_p0HbwMEjEey5MrHI2wLo6w">
+          <bpmn2:dataOutputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_userTaskActorsOutputX</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteReviewerOutputX</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_approvedOutputX</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_getPriorityOutputX</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_p0ICoMEjEey5MrHI2wLo6w">
+        <bpmn2:targetRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_TaskNameInputX</bpmn2:targetRef>
+        <bpmn2:assignment id="_p0ICocEjEey5MrHI2wLo6w">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_p0ICosEjEey5MrHI2wLo6w"><![CDATA[imageDeleteReview]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_p0ICo8EjEey5MrHI2wLo6w">_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_TaskNameInputX</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0ICpMEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>mainProcessInstanceId</bpmn2:sourceRef>
+        <bpmn2:targetRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_mainProcessInstanceIdInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0ICpcEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>rootProcessId</bpmn2:sourceRef>
+        <bpmn2:targetRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_rootProcessIdInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0ICpsEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>nodeName</bpmn2:sourceRef>
+        <bpmn2:targetRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_nodeNameInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0ICp8EjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>getTaskName</bpmn2:sourceRef>
+        <bpmn2:targetRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_getTaskNameInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0ICqMEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>isReturned</bpmn2:sourceRef>
+        <bpmn2:targetRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_isReturnedInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0ICqcEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>imageDeleteCreator</bpmn2:sourceRef>
+        <bpmn2:targetRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteCreatorInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0ICqsEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>imageDeleteReviewer</bpmn2:sourceRef>
+        <bpmn2:targetRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteReviewerInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0ICq8EjEey5MrHI2wLo6w">
+        <bpmn2:targetRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_SkippableInputX</bpmn2:targetRef>
+        <bpmn2:assignment id="_p0ICrMEjEey5MrHI2wLo6w">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_p0ICrcEjEey5MrHI2wLo6w"><![CDATA[true]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_p0ICrsEjEey5MrHI2wLo6w">_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_SkippableInputX</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0ICr8EjEey5MrHI2wLo6w">
+        <bpmn2:targetRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_GroupIdInputX</bpmn2:targetRef>
+        <bpmn2:assignment id="_p0ICsMEjEey5MrHI2wLo6w">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_p0ICscEjEey5MrHI2wLo6w"><![CDATA[#{userTaskGroup}]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_p0ICssEjEey5MrHI2wLo6w">_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_GroupIdInputX</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0ICs8EjEey5MrHI2wLo6w">
+        <bpmn2:targetRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_DescriptionInputX</bpmn2:targetRef>
+        <bpmn2:assignment id="_p0ICtMEjEey5MrHI2wLo6w">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_p0ICtcEjEey5MrHI2wLo6w"><![CDATA[imageDeleteReview]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_p0ICtsEjEey5MrHI2wLo6w">_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_DescriptionInputX</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_p0ICt8EjEey5MrHI2wLo6w">
+        <bpmn2:targetRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_PriorityInputX</bpmn2:targetRef>
+        <bpmn2:assignment id="_p0ICuMEjEey5MrHI2wLo6w">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_p0ICucEjEey5MrHI2wLo6w"><![CDATA[1]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_p0ICusEjEey5MrHI2wLo6w">_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_PriorityInputX</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="_p0ICu8EjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_userTaskActorsOutputX</bpmn2:sourceRef>
+        <bpmn2:targetRef>userTaskActors</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:dataOutputAssociation id="_p0ICvMEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_imageDeleteReviewerOutputX</bpmn2:sourceRef>
+        <bpmn2:targetRef>imageDeleteReviewer</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:dataOutputAssociation id="_p0ICvcEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_approvedOutputX</bpmn2:sourceRef>
+        <bpmn2:targetRef>approved</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:dataOutputAssociation id="_p0ICvsEjEey5MrHI2wLo6w">
+        <bpmn2:sourceRef>_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_getPriorityOutputX</bpmn2:sourceRef>
+        <bpmn2:targetRef>getPriority</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:potentialOwner id="_129c2515-c58d-43fe-833b-a43625e86e5f">
+        <bpmn2:resourceAssignmentExpression id="_p0ICv8EjEey5MrHI2wLo6w">
+          <bpmn2:formalExpression id="_p0ICwMEjEey5MrHI2wLo6w">#{userTaskActors}</bpmn2:formalExpression>
+        </bpmn2:resourceAssignmentExpression>
+      </bpmn2:potentialOwner>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="_CCCE1D93-21F2-4CB8-9863-C1D3A10839D2" name="影像刪除處理流程完成">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[影像刪除處理流程完成]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_7A03BBAC-F472-4510-866B-DDCBDAB084E7</bpmn2:incoming>
+    </bpmn2:endEvent>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="_p0ICwcEjEey5MrHI2wLo6w">
+    <bpmndi:BPMNPlane id="_p0ICwsEjEey5MrHI2wLo6w" bpmnElement="imagedelete.imagedeleteprocess.pam7">
+      <bpmndi:BPMNShape id="shape__CCCE1D93-21F2-4CB8-9863-C1D3A10839D2" bpmnElement="_CCCE1D93-21F2-4CB8-9863-C1D3A10839D2">
+        <dc:Bounds height="56.0" width="56.0" x="1320.0" y="407.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922" bpmnElement="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922">
+        <dc:Bounds height="50.0" width="110.0" x="770.0" y="400.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__F725966C-E9EF-43B7-A13E-0A546C8A3B73" bpmnElement="_F725966C-E9EF-43B7-A13E-0A546C8A3B73">
+        <dc:Bounds height="50.0" width="132.0" x="1117.0" y="400.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__3717BE60-CE1D-4749-B40E-64FF457F1DAE" bpmnElement="_3717BE60-CE1D-4749-B40E-64FF457F1DAE">
+        <dc:Bounds height="56.0" width="56.0" x="685.0" y="405.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__9AE126E0-AFA1-44D0-9DEA-5839953D944D" bpmnElement="_9AE126E0-AFA1-44D0-9DEA-5839953D944D">
+        <dc:Bounds height="56.0" width="56.0" x="466.0" y="405.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__EB83628C-528B-4F53-AC92-D159DCB0DF20" bpmnElement="_EB83628C-528B-4F53-AC92-D159DCB0DF20">
+        <dc:Bounds height="50.0" width="110.0" x="540.0" y="400.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__E11E617E-E71B-4492-9D18-2EF95FA88E5C" bpmnElement="_E11E617E-E71B-4492-9D18-2EF95FA88E5C">
+        <dc:Bounds height="56.0" width="56.0" x="935.0" y="405.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__9D511245-5AAC-434F-8734-8FA915B0293A" bpmnElement="_9D511245-5AAC-434F-8734-8FA915B0293A">
+        <dc:Bounds height="56.0" width="56.0" x="181.0" y="407.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__3F5A28A0-B301-43CC-A76E-C20F788241AF" bpmnElement="_3F5A28A0-B301-43CC-A76E-C20F788241AF">
+        <dc:Bounds height="56.0" width="56.0" x="60.0" y="410.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__2638CA00-474D-404D-A08C-47C20817C9AD" bpmnElement="_2638CA00-474D-404D-A08C-47C20817C9AD">
+        <dc:Bounds height="56.0" width="56.0" x="1035.0" y="405.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__C137BA0B-669B-47FE-9CEB-E711A843DD88" bpmnElement="_C137BA0B-669B-47FE-9CEB-E711A843DD88">
+        <dc:Bounds height="50.0" width="151.0" x="280.0" y="400.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge_shape__F725966C-E9EF-43B7-A13E-0A546C8A3B73_to_shape__CCCE1D93-21F2-4CB8-9863-C1D3A10839D2" bpmnElement="_7A03BBAC-F472-4510-866B-DDCBDAB084E7">
+        <di:waypoint xsi:type="dc:Point" x="1183.0" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1284.0" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1334.0" y="421.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__3717BE60-CE1D-4749-B40E-64FF457F1DAE_to_shape__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922" bpmnElement="_EB8924AD-DFD8-44E7-8642-6CC896C4156B">
+        <di:waypoint xsi:type="dc:Point" x="705.0" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="750.0" y="424.0"/>
+        <di:waypoint xsi:type="dc:Point" x="825.0" y="425.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922_to_shape__E11E617E-E71B-4492-9D18-2EF95FA88E5C" bpmnElement="_3979E8A2-2685-4F2C-83D8-7A65922123BB">
+        <di:waypoint xsi:type="dc:Point" x="825.0" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="905.0" y="424.0"/>
+        <di:waypoint xsi:type="dc:Point" x="955.0" y="425.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__2638CA00-474D-404D-A08C-47C20817C9AD_to_shape__F725966C-E9EF-43B7-A13E-0A546C8A3B73" bpmnElement="_7760DB8A-29C6-43CE-A8E2-5BC25A559E06">
+        <di:waypoint xsi:type="dc:Point" x="1055.0" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1098.0" y="424.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1183.0" y="425.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__EB83628C-528B-4F53-AC92-D159DCB0DF20_to_shape__3717BE60-CE1D-4749-B40E-64FF457F1DAE" bpmnElement="_7E63AF65-43F7-42BC-8E3C-57D5FC5E7F6B">
+        <di:waypoint xsi:type="dc:Point" x="595.0" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="665.0" y="424.0"/>
+        <di:waypoint xsi:type="dc:Point" x="705.0" y="425.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__3717BE60-CE1D-4749-B40E-64FF457F1DAE_to_shape__2638CA00-474D-404D-A08C-47C20817C9AD" bpmnElement="_CD66584F-438F-4D8F-AE80-C34DBBBCDD58">
+        <di:waypoint xsi:type="dc:Point" x="705.0" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="705.0" y="327.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1055.0" y="327.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1055.0" y="425.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__E11E617E-E71B-4492-9D18-2EF95FA88E5C_to_shape__9AE126E0-AFA1-44D0-9DEA-5839953D944D" bpmnElement="_B9B24093-21E7-4A1E-86D9-96EE8B8B2E32">
+        <di:waypoint xsi:type="dc:Point" x="955.0" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="955.0" y="529.0"/>
+        <di:waypoint xsi:type="dc:Point" x="486.0" y="529.0"/>
+        <di:waypoint xsi:type="dc:Point" x="486.0" y="425.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__C137BA0B-669B-47FE-9CEB-E711A843DD88_to_shape__9AE126E0-AFA1-44D0-9DEA-5839953D944D" bpmnElement="_8F8B4AC3-5753-4304-B9D2-76EE80B7ABBB">
+        <di:waypoint xsi:type="dc:Point" x="355.5" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="446.0" y="424.0"/>
+        <di:waypoint xsi:type="dc:Point" x="486.0" y="425.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__9AE126E0-AFA1-44D0-9DEA-5839953D944D_to_shape__EB83628C-528B-4F53-AC92-D159DCB0DF20" bpmnElement="_A0A78A9A-194F-4A11-8C9A-21E2300B5CA8">
+        <di:waypoint xsi:type="dc:Point" x="486.0" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="525.0" y="424.0"/>
+        <di:waypoint xsi:type="dc:Point" x="595.0" y="425.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__E11E617E-E71B-4492-9D18-2EF95FA88E5C_to_shape__2638CA00-474D-404D-A08C-47C20817C9AD" bpmnElement="_F283AE71-15C8-4224-901A-096C268EDABC">
+        <di:waypoint xsi:type="dc:Point" x="955.0" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1005.0" y="424.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1055.0" y="425.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__3F5A28A0-B301-43CC-A76E-C20F788241AF_to_shape__9D511245-5AAC-434F-8734-8FA915B0293A" bpmnElement="_F8E34F28-FCFF-4E82-A443-8B9A174045D1">
+        <di:waypoint xsi:type="dc:Point" x="75.0" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="135.0" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="196.0" y="422.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__9D511245-5AAC-434F-8734-8FA915B0293A_to_shape__C137BA0B-669B-47FE-9CEB-E711A843DD88" bpmnElement="_408B29C0-12C1-48EB-A1E9-FAA96572099D">
+        <di:waypoint xsi:type="dc:Point" x="196.0" y="422.0"/>
+        <di:waypoint xsi:type="dc:Point" x="248.0" y="425.0"/>
+        <di:waypoint xsi:type="dc:Point" x="355.5" y="425.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmn2:relationship id="_p0ICw8EjEey5MrHI2wLo6w" type="BPSimData">
+    <bpmn2:extensionElements>
+      <bpsim:BPSimData>
+        <bpsim:Scenario xsi:type="bpsim:Scenario" id="default" name="Simulationscenario">
+          <bpsim:ScenarioParameters xsi:type="bpsim:ScenarioParameters"/>
+          <bpsim:ElementParameters xsi:type="bpsim:ElementParameters" elementRef="_F13FE2BD-7BC1-4E25-99B1-A2C0AB89B922" id="_p0ICxMEjEey5MrHI2wLo6w">
+            <bpsim:TimeParameters xsi:type="bpsim:TimeParameters">
+              <bpsim:ProcessingTime xsi:type="bpsim:Parameter">
+                <bpsim:UniformDistribution max="10.0" min="5.0"/>
+              </bpsim:ProcessingTime>
+            </bpsim:TimeParameters>
+            <bpsim:ResourceParameters xsi:type="bpsim:ResourceParameters">
+              <bpsim:Availability xsi:type="bpsim:Parameter">
+                <bpsim:FloatingParameter value="8.0"/>
+              </bpsim:Availability>
+              <bpsim:Quantity xsi:type="bpsim:Parameter">
+                <bpsim:FloatingParameter value="1.0"/>
+              </bpsim:Quantity>
+            </bpsim:ResourceParameters>
+            <bpsim:CostParameters xsi:type="bpsim:CostParameters">
+              <bpsim:UnitCost xsi:type="bpsim:Parameter">
+                <bpsim:FloatingParameter value="0.0"/>
+              </bpsim:UnitCost>
+            </bpsim:CostParameters>
+          </bpsim:ElementParameters>
+          <bpsim:ElementParameters xsi:type="bpsim:ElementParameters" elementRef="_F725966C-E9EF-43B7-A13E-0A546C8A3B73" id="_p0ICxcEjEey5MrHI2wLo6w">
+            <bpsim:TimeParameters xsi:type="bpsim:TimeParameters">
+              <bpsim:ProcessingTime xsi:type="bpsim:Parameter">
+                <bpsim:UniformDistribution max="10.0" min="5.0"/>
+              </bpsim:ProcessingTime>
+            </bpsim:TimeParameters>
+            <bpsim:ResourceParameters xsi:type="bpsim:ResourceParameters">
+              <bpsim:Availability xsi:type="bpsim:Parameter">
+                <bpsim:FloatingParameter value="0.0"/>
+              </bpsim:Availability>
+              <bpsim:Quantity xsi:type="bpsim:Parameter">
+                <bpsim:FloatingParameter value="0.0"/>
+              </bpsim:Quantity>
+            </bpsim:ResourceParameters>
+            <bpsim:CostParameters xsi:type="bpsim:CostParameters">
+              <bpsim:UnitCost xsi:type="bpsim:Parameter">
+                <bpsim:FloatingParameter value="0.0"/>
+              </bpsim:UnitCost>
+            </bpsim:CostParameters>
+          </bpsim:ElementParameters>
+          <bpsim:ElementParameters xsi:type="bpsim:ElementParameters" elementRef="_EB83628C-528B-4F53-AC92-D159DCB0DF20" id="_p0ICxsEjEey5MrHI2wLo6w">
+            <bpsim:TimeParameters xsi:type="bpsim:TimeParameters">
+              <bpsim:ProcessingTime xsi:type="bpsim:Parameter">
+                <bpsim:UniformDistribution max="10.0" min="5.0"/>
+              </bpsim:ProcessingTime>
+            </bpsim:TimeParameters>
+            <bpsim:ResourceParameters xsi:type="bpsim:ResourceParameters">
+              <bpsim:Availability xsi:type="bpsim:Parameter">
+                <bpsim:FloatingParameter value="8.0"/>
+              </bpsim:Availability>
+              <bpsim:Quantity xsi:type="bpsim:Parameter">
+                <bpsim:FloatingParameter value="1.0"/>
+              </bpsim:Quantity>
+            </bpsim:ResourceParameters>
+            <bpsim:CostParameters xsi:type="bpsim:CostParameters">
+              <bpsim:UnitCost xsi:type="bpsim:Parameter">
+                <bpsim:FloatingParameter value="0.0"/>
+              </bpsim:UnitCost>
+            </bpsim:CostParameters>
+          </bpsim:ElementParameters>
+          <bpsim:ElementParameters xsi:type="bpsim:ElementParameters" elementRef="_3F5A28A0-B301-43CC-A76E-C20F788241AF" id="_p0ICx8EjEey5MrHI2wLo6w">
+            <bpsim:TimeParameters xsi:type="bpsim:TimeParameters">
+              <bpsim:ProcessingTime xsi:type="bpsim:Parameter">
+                <bpsim:UniformDistribution max="10.0" min="5.0"/>
+              </bpsim:ProcessingTime>
+            </bpsim:TimeParameters>
+          </bpsim:ElementParameters>
+          <bpsim:ElementParameters xsi:type="bpsim:ElementParameters" elementRef="_C137BA0B-669B-47FE-9CEB-E711A843DD88" id="_p0ICyMEjEey5MrHI2wLo6w">
+            <bpsim:TimeParameters xsi:type="bpsim:TimeParameters">
+              <bpsim:ProcessingTime xsi:type="bpsim:Parameter">
+                <bpsim:UniformDistribution max="10.0" min="5.0"/>
+              </bpsim:ProcessingTime>
+            </bpsim:TimeParameters>
+            <bpsim:ResourceParameters xsi:type="bpsim:ResourceParameters">
+              <bpsim:Availability xsi:type="bpsim:Parameter">
+                <bpsim:FloatingParameter value="0.0"/>
+              </bpsim:Availability>
+              <bpsim:Quantity xsi:type="bpsim:Parameter">
+                <bpsim:FloatingParameter value="0.0"/>
+              </bpsim:Quantity>
+            </bpsim:ResourceParameters>
+            <bpsim:CostParameters xsi:type="bpsim:CostParameters">
+              <bpsim:UnitCost xsi:type="bpsim:Parameter">
+                <bpsim:FloatingParameter value="0.0"/>
+              </bpsim:UnitCost>
+            </bpsim:CostParameters>
+          </bpsim:ElementParameters>
+        </bpsim:Scenario>
+      </bpsim:BPSimData>
+    </bpmn2:extensionElements>
+    <bpmn2:source>_p0HbkMEjEey5MrHI2wLo6w</bpmn2:source>
+    <bpmn2:target>_p0HbkMEjEey5MrHI2wLo6w</bpmn2:target>
+  </bpmn2:relationship>
+</bpmn2:definitions>

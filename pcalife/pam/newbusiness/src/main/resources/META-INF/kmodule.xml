@@ -1,0 +1,5 @@
+<kmodule xmlns="http://www.drools.org/xsd/kmodule" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <kbase name="kbase-newbusiness" default="true" eventProcessingMode="stream" equalsBehavior="identity" packages="*" includes="kbase-dataimport, kbase-dataentry, kbase-inquirylia, kbase-autounderwriting, kbase-underwriting, kbase-vpos, kbase-exception">
+    <ksession name="ksession-newbusiness" type="stateful" default="true" clockType="realtime"/>
+  </kbase>
+</kmodule>

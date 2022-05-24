@@ -1,0 +1,5 @@
+<kmodule xmlns="http://www.drools.org/xsd/kmodule" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <kbase name="kbase-inquirylia" default="true" eventProcessingMode="stream" equalsBehavior="identity" packages="*">
+    <ksession name="ksession-inquirylia" type="stateful" default="true" clockType="realtime"/>
+  </kbase>
+</kmodule>
