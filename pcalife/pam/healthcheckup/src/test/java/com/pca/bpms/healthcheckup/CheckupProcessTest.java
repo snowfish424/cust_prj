@@ -1,7 +1,9 @@
 package com.pca.bpms.healthcheckup;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.List;
 
 import com.pca.bpms.healthcheckup.client.JBpmRestClient;
@@ -19,6 +21,12 @@ import org.kie.api.runtime.process.WorkItem;
 import org.kie.api.task.TaskService;
 import org.kie.api.task.model.TaskSummary;
 import org.kie.internal.runtime.manager.context.ProcessInstanceIdContext;
+import org.kie.server.api.marshalling.MarshallingFormat;
+import org.kie.server.client.KieServicesClient;
+import org.kie.server.client.KieServicesConfiguration;
+import org.kie.server.client.KieServicesFactory;
+import org.kie.server.client.ProcessServicesClient;
+import org.kie.server.client.UserTaskServicesClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,13 +39,76 @@ public class CheckupProcessTest extends JbpmJUnitBaseTestCase {
         super(true, false);
     }
 
+    private static final String URL = "http://localhost:8080/kie-server/services/rest/server";
+    private static final String USER = "rhpamAdmin";
+    private static final String PASSWORD = "1qaz@WSX";
+
     private static final String MAIN_PROCESS = "com/pca/bpms/healthcheckup/CheckupProcess.bpmn";
     private static final String EXCEPTIONHANDLE_PROCESS = "com/pca/bpms/healthcheckup/ExceptionHandle.bpmn";
 
     @Test
     public void testPAM7RestClient() throws Exception {
+        Map<String, Object> params = new HashMap<String, Object>();
+
+        Map<String, Object> appform = new HashMap<String, Object>();
+        Map<String, Object> checkup = new HashMap<String, Object>();
+        Map<String, Object> issue = new HashMap<String, Object>();
+
+        appform.put("com.pca.bpms.model.ApplicationForm", getAppform());
+        checkup.put("com.pca.bpms.model.healthcheckup.Checkup", getCheckup());
+        issue.put("com.pca.bpms.model.IssueCase", new IssueCase());
+
+        params.put("appform", appform);
+        params.put("checkup", checkup);
+        params.put("issue", issue);
+        params.put("sender", "rhpamAdmin");
+
         JBpmRestClient client = new JBpmRestClient("localhost", 8080, "kie-server/services/rest/server", "rhpamAdmin", "1qaz@WSX");
-        client.createProcessInstance("healthcheckup_1.0.0-SNAPSHOT", "healthcheckupprocess.pam7", new HashMap<String, String>(), "john");
+        String processId = client.createProcessInstance("healthcheckup_1.0.0-SNAPSHOT", "healthcheckupprocess.pam7", params, "john");
+
+        client.proceedTask(processId, params, "rhpamAdmin");
+    }
+
+    @Test
+    public void testPAM7KieClient() throws Exception {
+        this.initialize();
+        logger.info("== Starting a process ==");
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        Checkup checkup = getCheckup();
+        ApplicationForm appform = getAppform();
+        params.put("appform", appform);
+        params.put("checkup", checkup);
+        params.put("issue", new IssueCase());
+        params.put("sender", "john");
+
+        Long processInsId = processClient.startProcess("healthcheckup_1.0.0-SNAPSHOT", "healthcheckupprocess.pam7", params);
+        logger.info("Process started!");
+        processClient.signalProcessInstance("healthcheckup_1.0.0-SNAPSHOT", processInsId, "startProcess", "");
+
+        //List<org.kie.server.api.model.instance.TaskSummary> tasks = userTaskClient.findTasksAssignedAsPotentialOwner("john",1,1);
+        //logger.info("== Task ID: " +tasks.get(0).getId());
+        userTaskClient.completeTask("healthcheckup_1.0.0-SNAPSHOT", 1L, "john", params);
+    }
+
+    KieServicesConfiguration conf;
+    KieServicesClient kieServicesClient;
+    ProcessServicesClient processClient;
+    UserTaskServicesClient userTaskClient;
+
+    public void initialize() {
+        logger.info("Configuration initializing");
+        conf = KieServicesFactory.newRestConfiguration(URL, USER, PASSWORD);
+        Set<Class<?>> extraClassList = new HashSet<Class<?>>();
+        extraClassList.add(ApplicationForm.class);
+        extraClassList.add(Checkup.class);
+        extraClassList.add(IssueCase.class);
+        conf.addExtraClasses(extraClassList);
+        conf.setMarshallingFormat(MarshallingFormat.JSON);
+        kieServicesClient = KieServicesFactory.newKieServicesClient(conf);
+        processClient = kieServicesClient.getServicesClient(ProcessServicesClient.class);
+        userTaskClient = kieServicesClient.getServicesClient(UserTaskServicesClient.class);
+        logger.info("Cofig Initialized with success!");
     }
 
     @Test
@@ -123,14 +194,14 @@ public class CheckupProcessTest extends JbpmJUnitBaseTestCase {
     	Checkup checkup = new Checkup();
     	//checkup.setLifeId("123");
     	checkup.setIssueRaised(false);;
-    	//checkup.setChangeNo("test");
+    	checkup.setChangeNo("test");
     	
     	return checkup;
     }
 
     private ApplicationForm getAppform() {
     	ApplicationForm appform = new ApplicationForm();
-    	appform.setPriority(0);
+    	appform.setPriority(1);
     	
         return appform;
     }

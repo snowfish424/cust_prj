@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.client.jaxrs.BasicAuthentication;
@@ -31,6 +32,7 @@ public class JBpmRestClient {
 	private static Logger logger = Logger.getLogger(JBpmRestClient.class);
 	
 	private WebTarget baseWebTarget = null;
+	private Gson gson = new Gson(); 
 	
 	public JBpmRestClient(String host, int port, String apiPath, String userName, String password) {
 		ResteasyClientBuilder resteasyClientBuilder = new ResteasyClientBuilder();
@@ -40,15 +42,17 @@ public class JBpmRestClient {
         this.baseWebTarget.register(new BasicAuthentication(userName, password));
 	}
 	
-	public String createProcessInstance(String containerId, String processId, Map<String, String> argsMap, String user) throws Exception {
+	public String createProcessInstance(String containerId, String processId, Map<String, Object> argsMap, String user) throws Exception {
         WebTarget webTarget = this.baseWebTarget.path("containers/"+containerId+"/processes/" + processId + "/instances");
 
         String entityString = null;
+
         if(argsMap != null) {
         	ObjectMapper objectMapper = new ObjectMapper();
-        	Map<String, Map<String, String>> flowInputMap = new HashMap<String, Map<String, String>>();
-        	flowInputMap.put("flowInput", argsMap);
-        	entityString = objectMapper.writeValueAsString(flowInputMap);
+        	Map<String, Map<String, Object>> flowInputMap = new HashMap<String, Map<String, Object>>();
+        	//flowInputMap.put("flowInput", argsMap);
+        	//entityString = objectMapper.writeValueAsString(flowInputMap);
+			entityString = gson.toJson(argsMap); 
         }
         
         logger.info("createProcessInstance argument parameters = "+entityString);
@@ -70,27 +74,37 @@ public class JBpmRestClient {
         }
         
         logger.info("createProcessInstance success. Instance = "+responseResult);
+
+		webTarget = this.baseWebTarget.path("containers/"+containerId+"/processes/instances/"+responseResult+"/signal/startProcess");
+		invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+        response = invocationBuilder.post(Entity.entity(entityString, MediaType.APPLICATION_JSON));
+
+		responseCode = response.getStatus();
+        //responseResult = response.readEntity(String.class);
+        
+        logger.info("createProcessInstance responseCode = "+responseCode);
+        //logger.info("createProcessInstance responseResult = "+responseResult);
+
         response.close();
         return responseResult;
 	}
 	
-	public boolean proceedTask(String instanceId, Map<String, String> argsMap, String user) throws Exception {
+	public boolean proceedTask(String instanceId, Map<String, Object> argsMap, String user) throws Exception {
 		
 		TaskSummary currentTaskSummary = getCurrentTaskSummaryByInstanceId(instanceId);
 		
-//		if (currentTaskSummary == null) {
-//			throw new RuntimeException("BPM錯誤: 無法獲取BPM Instance[ID:" + instanceId + "]中屬於當前用戶的運行任務.");
-//		}
+		if (currentTaskSummary == null) {
+			throw new RuntimeException("BPM錯誤: 無法獲取BPM Instance[ID:" + instanceId + "]中屬於當前用戶的運行任務.");
+		}
 		
-		//String containerId = currentTaskSummary.getTaskContainerId();
-		String containerId = "org.skl.bpm:SKLUnderwritingFlowProject:1.17.5";
+		String containerId = currentTaskSummary.getTaskContainerId();
 
-//		if(!currentTaskSummary.getTaskStatus().equals("InProgress")) {
+		if(!currentTaskSummary.getTaskStatus().equals("InProgress")) {
 			logger.info("Trying to start the task ...");
-			//WebTarget startedWebTarget = this.baseWebTarget.path("containers/"+containerId+"/tasks/" + currentTaskSummary.getTaskId() + "/states/started").queryParam("user", user);
-			WebTarget startedWebTarget = this.baseWebTarget.path("containers/"+containerId+"/tasks/5/states/started").queryParam("user", user);
+			WebTarget startedWebTarget = this.baseWebTarget.path("containers/"+containerId+"/tasks/" + currentTaskSummary.getTaskId() + "/states/started").queryParam("user", user);
+			
 	        Response startedResponse = startedWebTarget.request(MediaType.APPLICATION_JSON).put(Entity.entity("", MediaType.APPLICATION_JSON));
-	        logger.info("Start Task status ===> " + Response.Status.CREATED.getStatusCode());
+	
 	        if (startedResponse.getStatus() != Response.Status.CREATED.getStatusCode()) {
 	        	String error = startedResponse.readEntity(String.class);
 	        	if(error.contains("does not have permissions")) {
@@ -101,9 +115,9 @@ public class JBpmRestClient {
 	        }
 	        
 	        startedResponse.close();
-//		} else {
-//			logger.info("Task is already started.");
-//		}
+		} else {
+			logger.info("Task is already started.");
+		}
         
         String entityString = null;
         if(argsMap != null) {
@@ -117,7 +131,8 @@ public class JBpmRestClient {
         	}catch (Throwable e) {
         		logger.info("[proceedTask] 處理processId發生錯誤："+e.getMessage());
         	}
-        	entityString = objectMapper.writeValueAsString(argsMap);
+        	//entityString = objectMapper.writeValueAsString(argsMap);
+			entityString = gson.toJson(argsMap);
         }
         
         logger.info("proceedTask argument parameters = "+entityString);
@@ -149,7 +164,14 @@ public class JBpmRestClient {
             throw new RuntimeException("BPM錯誤: 獲取用戶所屬BPM任務失敗." + errorContent);
         }
 
-        TaskSummaryResponse taskSummaryResp = response.readEntity(TaskSummaryResponse.class);
+		//原JSON解析      
+        //TaskSummaryResponse taskSummaryResp = response.readEntity(TaskSummaryResponse.class);
+        
+		//EAP 7.4更改解析方式
+		String JSON = response.readEntity(String.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		TaskSummaryResponse taskSummaryResp = objectMapper.readValue(JSON, TaskSummaryResponse.class);
         
         for (TaskSummary taskSummary : taskSummaryResp.getTaskSummaries()) {
         	instanceIds.add(String.valueOf(taskSummary.getTaskProcInstId()));
@@ -162,27 +184,24 @@ public class JBpmRestClient {
 	}
 	
 	public TaskSummary getCurrentTaskSummaryByInstanceId(String instanceId) throws Exception {
-		logger.info("==================== Entry getCurrentTaskSummaryByInstanceId =======================");
 		// Query current task
 		WebTarget queryCurrentTaskTarget = this.baseWebTarget.path("queries/tasks/instances/process/" + instanceId);
-
 		Response queryCurrentTaskResponse = queryCurrentTaskTarget.request(MediaType.APPLICATION_JSON).get();
-		//logger.info("queryCurrentTaskResponse =====>" + queryCurrentTaskResponse.readEntity(String.class));
-
 		if (queryCurrentTaskResponse.getStatus() != Response.Status.OK.getStatusCode()) {
 			String errorContent = queryCurrentTaskResponse.readEntity(String.class);
         	logger.error(errorContent);
             throw new RuntimeException("BPM錯誤: 無法獲取BPM Instance[ID:" + instanceId + "]運行中的任務." + errorContent);
 		}
 
+		//原JSON解析
 		//TaskSummaryResponse currentTaskSummary = queryCurrentTaskResponse.readEntity(TaskSummaryResponse.class);
-		String JSON = queryCurrentTaskResponse.readEntity(String.class); 
+
+		//EAP 7.4更改解析方式
+		String JSON = queryCurrentTaskResponse.readEntity(String.class);
 		ObjectMapper objectMapper = new ObjectMapper();
-    	objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		TaskSummaryResponse currentTaskSummary = objectMapper.readValue(JSON, TaskSummaryResponse.class);
 		
-		logger.info("==================== Prepare currentTaskSummary =======================");
-
 		if (currentTaskSummary != null && currentTaskSummary.getTaskSummaries() != null && currentTaskSummary.getTaskSummaries().size() > 0) {
 			logger.info("getCurrentTaskSummaryByInstanceId:"+currentTaskSummary.getTaskSummaries().get(0));
 			return currentTaskSummary.getTaskSummaries().get(0);
@@ -367,8 +386,15 @@ public class JBpmRestClient {
         	logger.error(errorContent);
             throw new RuntimeException("BPM錯誤: 獲取BPM任務失敗." + errorContent);
         }
-
-        TaskSummaryResponse taskSummaryResp = response.readEntity(TaskSummaryResponse.class);
+        
+		//原JSON解析      
+        //TaskSummaryResponse taskSummaryResp = response.readEntity(TaskSummaryResponse.class);
+        
+		//EAP 7.4更改解析方式
+		String JSON = response.readEntity(String.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		TaskSummaryResponse taskSummaryResp = objectMapper.readValue(JSON, TaskSummaryResponse.class);
         
         for (TaskSummary taskSummary : taskSummaryResp.getTaskSummaries()) {
         	instanceIds.add(String.valueOf(taskSummary.getTaskProcInstId()));
